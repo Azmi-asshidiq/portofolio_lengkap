@@ -721,24 +721,19 @@ const contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  
-  const btn = contactForm.querySelector('button[type="submit"]');
-  const originalText = btn.innerHTML;
-  
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
-  btn.disabled = true;
-  
-  setTimeout(() => {
-    btn.innerHTML = '<i class="fas fa-check"></i> Terkirim!';
-    btn.style.background = '#22c55e';
-    
-    setTimeout(() => {
-      btn.innerHTML = originalText;
-      btn.style.background = '';
-      btn.disabled = false;
-      contactForm.reset();
-    }, 2000);
-  }, 1500);
+
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const subject = document.getElementById('subject').value.trim() || 'Pesan dari Website Portofolio';
+  const message = document.getElementById('message').value.trim();
+  const recipient = 'azmiashshidiqramadhan@gmail.com';
+
+  const body = encodeURIComponent(
+    `Nama: ${name}\nEmail: ${email}\n\n${message}`
+  );
+
+  const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${body}`;
+  window.location.href = mailtoLink;
 });
 
 // ===== NAVBAR BACKGROUND ON SCROLL =====
